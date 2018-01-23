@@ -48,6 +48,21 @@ function equalityMap() {
   };
 }
 
+function arrayToSentence(arr) {
+  const separator = ", ";
+  const lastSeparator = " and ";
+
+  if (arr.length === 0) {
+    return "";
+  }
+
+  if (arr.length === 1) {
+    return arr[0];
+  }
+
+  return arr.slice(0, -1).join(separator) + lastSeparator + arr[arr.length - 1];
+}
+
 // [modules...] => { Tom Selleck => [], John Walsh => [] }
 // Priority:
 //
@@ -56,17 +71,28 @@ function equalityMap() {
 // - ?
 function groupByAuthor(modules) {
   let groups = {};
-  for (let { name, homepage, author, maintainers, authors } of modules) {
-    author = parseAuthor(author);
-    if (!author.name && authors && authors.length) {
-      author = parseAuthor(authors[0]);
+  for (let module of modules) {
+    let authors = [];
+
+    if (module.author) {
+      authors = [parseAuthor(module.author)];
+    } else if (module.authors) {
+      authors = module.authors.map(a => parseAuthor);
+    } else if (module.maintainers) {
+      authors = module.maintainers.map(a => parseAuthor);
+    } else if (module.licenseText) {
+      let match = module.licenseText.match(/Copyright \(c\)\s*\d*\s*(.*)/i);
+      if (match) {
+        authors = [{ name: match[1] }];
+      }
     }
-    if (!author.name && maintainers) {
-      author = parseAuthor(maintainers[0]);
-    }
-    author.name = author.name || "?";
-    if (!groups[author.name]) groups[author.name] = [];
-    groups[author.name].push(name);
+
+    let authorString = arrayToSentence(
+      authors.map(a => a.name).filter(Boolean)
+    );
+
+    if (!groups[authorString]) groups[authorString] = [];
+    groups[authorString].push(module.name);
   }
   return groups;
 }
@@ -90,6 +116,20 @@ module.exports = (options = {}) => {
         const pkgPath = path.join(dir, "package.json");
         if (fs.existsSync(pkgPath)) {
           pkg = require(pkgPath);
+
+          for (let licenseVariation of [
+            "LICENSE",
+            "license",
+            "LICENSE.md",
+            "LICENSE.txt",
+            "license.md"
+          ]) {
+            const licensePath = path.join(dir, licenseVariation);
+            if (fs.existsSync(licensePath)) {
+              pkg.licenseText = fs.readFileSync(licensePath, "utf8");
+            }
+          }
+
           dependencies.set(pkg.name, pkg);
           break;
         }

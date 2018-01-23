@@ -20,33 +20,40 @@ test("rollup-plugin-credits", t => {
 
   rollup.rollup(rollupConfig).then(async bundle => {
     const { code, map } = await bundle.generate({ format: "es" });
-    t.deepEqual(JSON.parse(code), [
-      {
-        license: { license: "MIT" },
-        modules: {
-          "James Halliday": [
-            "tape",
-            "defined",
-            "deep-equal",
-            "resumer",
-            "object-inspect"
-          ],
-          "Dominic Tarr": ["through"],
-          Raynos: ["function-bind"],
-          "Jordan Harband": [
-            "string.prototype.trim",
-            "define-properties",
-            "object-keys",
-            "es-abstract",
-            "is-callable",
-            "es-to-primitive"
-          ],
-          "Manuel Stofer": ["foreach"],
-          "Stephen Sugden": ["is-function"]
+    t.deepEqual(
+      JSON.parse(code),
+
+      [
+        {
+          license: { license: "MIT" },
+          modules: {
+            "James Halliday": [
+              "tape",
+              "defined",
+              "deep-equal",
+              "resumer",
+              "object-inspect"
+            ],
+            "Dominic Tarr": ["through"],
+            Raynos: ["function-bind"],
+            "Jordan Harband": [
+              "string.prototype.trim",
+              "define-properties",
+              "object-keys",
+              "es-abstract",
+              "is-callable",
+              "es-to-primitive"
+            ],
+            "Manuel Stofer": ["foreach"],
+            "Stephen Sugden": ["is-function"]
+          }
+        },
+        {
+          license: { license: "ISC" },
+          modules: { "Isaac Z. Schlueter": ["inherits"] }
         }
-      },
-      { license: { license: "ISC" }, modules: { "?": ["inherits"] } }
-    ]);
+      ]
+    );
     t.end();
   });
 });
