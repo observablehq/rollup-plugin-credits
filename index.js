@@ -49,10 +49,18 @@ function equalityMap() {
 }
 
 // [modules...] => { Tom Selleck => [], John Walsh => [] }
+// Priority:
+//
+// - author field
+// - first maintainer
+// - ?
 function groupByAuthor(modules) {
   let groups = {};
-  for (let { name, homepage, author } of modules) {
+  for (let { name, homepage, author, maintainers } of modules) {
     author = parseAuthor(author);
+    if (!author.name && maintainers) {
+      author = parseAuthor(maintainers[0]);
+    }
     author.name = author.name || "?";
     if (!groups[author.name]) groups[author.name] = [];
     groups[author.name].push(name);
