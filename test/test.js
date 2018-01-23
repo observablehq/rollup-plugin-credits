@@ -31,15 +31,21 @@ test("rollup-plugin-credits", t => {
             "resumer",
             "object-inspect"
           ],
+          "Dominic Tarr": ["through"],
+          Raynos: ["function-bind"],
           "Jordan Harband": [
             "string.prototype.trim",
+            "define-properties",
             "object-keys",
             "es-abstract",
-            "is-callable"
-          ]
+            "is-callable",
+            "es-to-primitive"
+          ],
+          "Manuel Stofer": ["foreach"],
+          "Stephen Sugden": ["is-function"]
         }
       },
-      { license: { license: "ISC" }, modules: {} }
+      { license: { license: "ISC" }, modules: { "?": ["inherits"] } }
     ]);
     t.end();
   });

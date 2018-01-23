@@ -52,7 +52,8 @@ function equalityMap() {
 function groupByAuthor(modules) {
   let groups = {};
   for (let { name, homepage, author } of modules) {
-    if (!author || !author.name) continue;
+    author = parseAuthor(author);
+    author.name = author.name || "?";
     if (!groups[author.name]) groups[author.name] = [];
     groups[author.name].push(name);
   }
