@@ -45,7 +45,9 @@ test("rollup-plugin-credits", t => {
               "es-to-primitive"
             ],
             "Manuel Stofer": ["foreach"],
-            "Stephen Sugden": ["is-function"]
+            "Stephen Sugden": ["is-function"],
+            "Marijn Haverbeke and Ingvar Stepanyan": ["acorn"],
+            "Blake Embrey": ["path-to-regexp"]
           }
         },
         {

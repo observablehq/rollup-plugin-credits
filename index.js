@@ -85,7 +85,7 @@ function groupByAuthor(modules) {
         /Copyright \(c\)\s*(?:[\-\d]*(?:present)?,?)?\s*(.*)/i
       );
       if (match) {
-        authors = [{ name: match[1] }];
+        authors = [parseAuthor(match[1])];
       }
     }
 
@@ -129,6 +129,7 @@ module.exports = (options = {}) => {
             const licensePath = path.join(dir, licenseVariation);
             if (fs.existsSync(licensePath)) {
               pkg.licenseText = fs.readFileSync(licensePath, "utf8");
+              break;
             }
           }
 

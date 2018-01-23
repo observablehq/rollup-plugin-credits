@@ -1,1 +1,3 @@
-var tape = require("tape");
+require("tape");
+require("acorn");
+require("path-to-regexp");
