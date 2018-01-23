@@ -56,8 +56,11 @@ function equalityMap() {
 // - ?
 function groupByAuthor(modules) {
   let groups = {};
-  for (let { name, homepage, author, maintainers } of modules) {
+  for (let { name, homepage, author, maintainers, authors } of modules) {
     author = parseAuthor(author);
+    if (!author.name && authors && authors.length) {
+      author = parseAuthor(authors[0]);
+    }
     if (!author.name && maintainers) {
       author = parseAuthor(maintainers[0]);
     }
