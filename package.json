@@ -1,0 +1,21 @@
+{
+  "name": "rollup-plugin-credits",
+  "version": "1.0.0",
+  "description": "Generate credits information for included dependencies",
+  "main": "index.js",
+  "author": "Tom MacWright",
+  "license": "MIT",
+  "scripts": {
+    "test": "tape test/test.js"
+  },
+  "devDependencies": {
+    "prettier": "^1.10.2",
+    "rollup": "^0.55.0",
+    "tape": "^4.8.0",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.2"
+  },
+  "dependencies": {
+    "spdx-expression-parse": "^2.0.2"
+  }
+}
