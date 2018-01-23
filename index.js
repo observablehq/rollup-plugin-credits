@@ -82,7 +82,7 @@ function groupByAuthor(modules) {
       authors = module.maintainers.map(parseAuthor);
     } else if (module.licenseText) {
       let match = module.licenseText.match(
-        /Copyright \(c\)\s*(?:[\-\d]*(?:present)?,?)?\s*(.*)/i
+        /Copyright (?:\(c\))?(?:©)?\s*(?:[\-\d]*(?:present)?,?)?\s*(.*)/i
       );
       if (match) {
         authors = [parseAuthor(match[1])];
@@ -121,6 +121,7 @@ module.exports = (options = {}) => {
         const pkgPath = path.join(dir, "package.json");
         if (fs.existsSync(pkgPath)) {
           pkg = require(pkgPath);
+          if (pkg.private) return;
 
           for (let licenseVariation of [
             "LICENSE",
