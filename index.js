@@ -96,7 +96,10 @@ function groupByAuthor(modules) {
     if (!groups[authorString]) groups[authorString] = [];
     groups[authorString].push(module.name);
   }
-  return groups;
+  return Object.entries(groups).map(([author, modules]) => ({
+    author,
+    modules
+  }));
 }
 
 module.exports = (options = {}) => {

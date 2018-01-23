@@ -20,42 +20,47 @@ test("rollup-plugin-credits", t => {
 
   rollup.rollup(rollupConfig).then(async bundle => {
     const { code, map } = await bundle.generate({ format: "es" });
-    t.deepEqual(
-      JSON.parse(code.replace(/^export default/, "")),
-
-      [
-        {
-          license: { license: "MIT" },
-          modules: {
-            "James Halliday": [
+    t.deepEqual(JSON.parse(code.replace(/^export default/, "")), [
+      {
+        license: { license: "MIT" },
+        modules: [
+          {
+            author: "James Halliday",
+            modules: [
               "tape",
               "defined",
               "deep-equal",
               "resumer",
               "object-inspect"
-            ],
-            "Dominic Tarr": ["through"],
-            Raynos: ["function-bind"],
-            "Jordan Harband": [
+            ]
+          },
+          { author: "Dominic Tarr", modules: ["through"] },
+          { author: "Raynos", modules: ["function-bind"] },
+          {
+            author: "Jordan Harband",
+            modules: [
               "string.prototype.trim",
               "define-properties",
               "object-keys",
               "es-abstract",
               "is-callable",
               "es-to-primitive"
-            ],
-            "Manuel Stofer": ["foreach"],
-            "Stephen Sugden": ["is-function"],
-            "Marijn Haverbeke and Ingvar Stepanyan": ["acorn"],
-            "Blake Embrey": ["path-to-regexp"]
-          }
-        },
-        {
-          license: { license: "ISC" },
-          modules: { "Isaac Z. Schlueter": ["inherits"] }
-        }
-      ]
-    );
+            ]
+          },
+          { author: "Manuel Stofer", modules: ["foreach"] },
+          { author: "Stephen Sugden", modules: ["is-function"] },
+          {
+            author: "Marijn Haverbeke and Ingvar Stepanyan",
+            modules: ["acorn"]
+          },
+          { author: "Blake Embrey", modules: ["path-to-regexp"] }
+        ]
+      },
+      {
+        license: { license: "ISC" },
+        modules: [{ author: "Isaac Z. Schlueter", modules: ["inherits"] }]
+      }
+    ]);
     t.end();
   });
 });
