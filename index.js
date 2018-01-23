@@ -170,7 +170,7 @@ module.exports = (options = {}) => {
           modules: groupByAuthor(modules)
         });
       }
-      return JSON.stringify(output, null, 2);
+      return "export default " + JSON.stringify(output, null, 2);
     }
   };
 };

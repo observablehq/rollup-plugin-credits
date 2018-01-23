@@ -21,7 +21,7 @@ test("rollup-plugin-credits", t => {
   rollup.rollup(rollupConfig).then(async bundle => {
     const { code, map } = await bundle.generate({ format: "es" });
     t.deepEqual(
-      JSON.parse(code),
+      JSON.parse(code.replace(/^export default/, "")),
 
       [
         {
