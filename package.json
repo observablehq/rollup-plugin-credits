@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-credits",
+  "name": "@observablehq/rollup-plugin-credits",
   "version": "1.0.0",
   "description": "Generate credits information for included dependencies",
   "main": "index.js",
