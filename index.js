@@ -79,7 +79,7 @@ function groupByAuthor(modules) {
     } else if (module.authors) {
       authors = module.authors.map(parseAuthor);
     } else if (module.maintainers) {
-      authors = module.maintainers.map(a => parseAuthor);
+      authors = module.maintainers.map(parseAuthor);
     } else if (module.licenseText) {
       let match = module.licenseText.match(
         /Copyright \(c\)\s*(?:[\-\d]*(?:present)?,?)?\s*(.*)/i
