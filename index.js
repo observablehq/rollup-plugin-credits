@@ -77,7 +77,7 @@ function groupByAuthor(modules) {
     if (module.author) {
       authors = [parseAuthor(module.author)];
     } else if (module.authors) {
-      authors = module.authors.map(a => parseAuthor);
+      authors = module.authors.map(parseAuthor);
     } else if (module.maintainers) {
       authors = module.maintainers.map(a => parseAuthor);
     } else if (module.licenseText) {
