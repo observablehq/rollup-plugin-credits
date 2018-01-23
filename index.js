@@ -82,7 +82,7 @@ function groupByAuthor(modules) {
       authors = module.maintainers.map(a => parseAuthor);
     } else if (module.licenseText) {
       let match = module.licenseText.match(
-        /Copyright \(c\)\s*(?:[\-\d]*(?:present)?)?\s*(.*)/i
+        /Copyright \(c\)\s*(?:[\-\d]*(?:present)?,?)?\s*(.*)/i
       );
       if (match) {
         authors = [{ name: match[1] }];
