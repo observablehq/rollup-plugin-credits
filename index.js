@@ -128,7 +128,8 @@ module.exports = (options = {}) => {
             "license",
             "LICENSE.md",
             "LICENSE.txt",
-            "license.md"
+            "license.md",
+            "license.txt"
           ]) {
             const licensePath = path.join(dir, licenseVariation);
             if (fs.existsSync(licensePath)) {
