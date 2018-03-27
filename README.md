@@ -1,5 +1,7 @@
 ### rollup-plugin-credits
 
+[![CircleCI](https://circleci.com/gh/observablehq/rollup-plugin-credits/tree/master.svg?style=svg)](https://circleci.com/gh/observablehq/rollup-plugin-credits/tree/master)
+
 Generate 'credits' for included code: parses SPDX licenses, groups dependencies
 by license, groups licensed dependencies by author. In the interest of creating
 concise credits pages.

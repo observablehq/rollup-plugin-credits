@@ -6,8 +6,10 @@
   "author": "Tom MacWright",
   "license": "MIT",
   "scripts": {
-    "test": "tape test/test.js"
+    "test": "tape test/test.js",
+    "release": "standard-version"
   },
+  "files": [],
   "devDependencies": {
     "acorn": "^5.3.0",
     "path-to-regexp": "^2.1.0",
@@ -15,6 +17,7 @@
     "rollup": "^0.55.0",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.2",
+    "standard-version": "^4.3.0",
     "tape": "^4.8.0"
   },
   "dependencies": {
