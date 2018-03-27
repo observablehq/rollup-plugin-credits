@@ -1,6 +1,6 @@
 {
   "name": "@observablehq/rollup-plugin-credits",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate credits information for included dependencies",
   "main": "index.js",
   "author": "Tom MacWright",
