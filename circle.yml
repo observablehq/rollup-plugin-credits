@@ -1,3 +1,14 @@
 machine:
   node:
     version: 8
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+    NODE_ENV: test
+dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
+test:
+  override:
+    - yarn test
