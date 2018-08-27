@@ -5,6 +5,31 @@ const commonjs = require("rollup-plugin-commonjs");
 const nodeResolve = require("rollup-plugin-node-resolve");
 const credits = require("../");
 
+test("flattenLicense", t => {
+  t.deepEqual(
+    credits.flattenLicense({
+      left: { license: "LGPL-2.1" },
+      conjunction: "or",
+      right: {
+        left: { license: "BSD-3-Clause" },
+        conjunction: "and",
+        right: { license: "MIT" }
+      }
+    }),
+    ["LGPL-2.1", "BSD-3-Clause", "MIT"]
+  );
+  t.deepEqual(
+    credits.flattenLicense({
+      left: { license: "BSD-3-Clause" },
+      conjunction: "and",
+      right: { license: "MIT" }
+    }),
+    ["BSD-3-Clause", "MIT"]
+  );
+  t.deepEqual(credits.flattenLicense({ license: "LGPL-2.1" }), ["LGPL-2.1"]);
+  t.end();
+});
+
 test("rollup-plugin-credits", t => {
   t.ok("required");
 
@@ -61,6 +86,34 @@ test("rollup-plugin-credits", t => {
         modules: [{ author: "Isaac Z. Schlueter", modules: ["inherits"] }]
       }
     ]);
+    t.end();
+  });
+});
+
+test("rollup-plugin-credits whitelist", t => {
+  const rollupConfig = {
+    input: path.join(__dirname, "example.js"),
+    output: {
+      format: "es"
+    },
+    plugins: [
+      nodeResolve(),
+      commonjs(),
+      credits({ debug: true, whitelist: ["MIT"] })
+    ]
+  };
+
+  rollup.rollup(rollupConfig).then(async bundle => {
+    try {
+      const { code, map } = await bundle.generate({ format: "es" });
+      t.fail();
+    } catch (e) {
+      t.ok(
+        e.message.includes("Non-whitelisted license detected in inherits: ISC"),
+        "Got infringment"
+      );
+    }
+
     t.end();
   });
 });

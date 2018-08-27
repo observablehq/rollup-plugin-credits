@@ -48,6 +48,14 @@ function equalityMap() {
   };
 }
 
+function flattenLicense(root) {
+  if (root.left) {
+    return [...flattenLicense(root.left), ...flattenLicense(root.right)];
+  } else if (root.license) {
+    return [root.license];
+  }
+}
+
 function arrayToSentence(arr) {
   const separator = ", ";
   const lastSeparator = " and ";
@@ -102,9 +110,10 @@ function groupByAuthor(modules) {
   }));
 }
 
-module.exports = (options = {}) => {
+module.exports = ({ whitelist } = {}) => {
   const cache = new Map();
   const dependencies = new Map();
+  const whitelistSet = new Set(whitelist);
   const cwd = process.cwd();
 
   return {
@@ -160,6 +169,15 @@ module.exports = (options = {}) => {
           continue;
         }
         let parsedLicense = licenseObjects(parseSPDX(dependency.license));
+        if (whitelist) {
+          for (let license of flattenLicense(parsedLicense)) {
+            if (!whitelistSet.has(license)) {
+              throw new Error(
+                `Non-whitelisted license detected in ${name}: ${license}`
+              );
+            }
+          }
+        }
 
         let existing = licenseGroups.get(parsedLicense);
         licenseGroups.set(
@@ -179,3 +197,5 @@ module.exports = (options = {}) => {
     }
   };
 };
+
+module.exports.flattenLicense = flattenLicense;

@@ -56,4 +56,6 @@ export default [
 
 #### Options
 
-- none, yet
+- whitelist: an array or Set of SPDX license identifiers that are allowed in the
+  list. If provided and a non-whitelisted dependency is encountered, the transform
+  will reject.
