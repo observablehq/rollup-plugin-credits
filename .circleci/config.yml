@@ -2,18 +2,16 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:10.8.0
     steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: install-npm-wee
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
+          name: yarn
+          command: curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.9.4
+      - checkout
+      - run:
+          name: install
+          command: $HOME/.yarn/bin/yarn --frozen-lockfile
       - run:
           name: test
-          command: npm test
+          command: $HOME/.yarn/bin/yarn test
+
