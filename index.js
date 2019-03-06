@@ -104,10 +104,12 @@ function groupByAuthor(modules) {
     if (!groups[authorString]) groups[authorString] = [];
     groups[authorString].push(module.name);
   }
-  return Object.entries(groups).map(([author, modules]) => ({
-    author,
-    modules
-  }));
+  return Object.entries(groups)
+    .map(([author, modules]) => ({
+      author,
+      modules: modules.sort()
+    }))
+    .sort((a, b) => a.author > b.author);
 }
 
 module.exports = ({ whitelist } = {}) => {
@@ -156,7 +158,7 @@ module.exports = ({ whitelist } = {}) => {
         cache.set(scannedDir, pkg);
       });
     },
-    transformBundle() {
+    renderChunk() {
       // Step 1: transform flat list of dependency into {license} => [{package}...]
       // Map
       const licenseGroups = new Map();
@@ -193,6 +195,7 @@ module.exports = ({ whitelist } = {}) => {
           modules: groupByAuthor(modules)
         });
       }
+      output.sort((a, b) => a.license.license > b.license.license);
       return "export default " + JSON.stringify(output, null, 2);
     }
   };
