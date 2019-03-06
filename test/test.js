@@ -44,46 +44,47 @@ test("rollup-plugin-credits", t => {
   };
 
   rollup.rollup(rollupConfig).then(async bundle => {
-    const { code, map } = await bundle.generate({ format: "es" });
-    t.deepEqual(JSON.parse(code.replace(/^export default/, "")), [
-      {
-        license: { license: "MIT" },
-        modules: [
-          {
-            author: "James Halliday",
-            modules: [
-              "tape",
-              "defined",
-              "deep-equal",
-              "resumer",
-              "object-inspect"
-            ]
-          },
-          { author: "Dominic Tarr", modules: ["through"] },
-          { author: "Raynos", modules: ["function-bind"] },
-          {
-            author: "Jordan Harband",
-            modules: [
-              "string.prototype.trim",
-              "define-properties",
-              "object-keys",
-              "es-abstract",
-              "is-callable",
-              "es-to-primitive"
-            ]
-          },
-          { author: "Manuel Stofer", modules: ["foreach"] },
-          { author: "Stephen Sugden", modules: ["is-function"] },
-          {
-            author: "Marijn Haverbeke and Ingvar Stepanyan",
-            modules: ["acorn"]
-          },
-          { author: "Blake Embrey", modules: ["path-to-regexp"] }
-        ]
-      },
+    const { output: [{ code, map }] } = await bundle.generate({ format: "es" });
+    const output = JSON.parse(code.replace(/^export default/, ""));
+    t.deepEqual(output, [
       {
         license: { license: "ISC" },
         modules: [{ author: "Isaac Z. Schlueter", modules: ["inherits"] }]
+      },
+      {
+        license: { license: "MIT" },
+        modules: [
+          { author: "Blake Embrey", modules: ["path-to-regexp"] },
+          { author: "Dominic Tarr", modules: ["through"] },
+          {
+            author: "James Halliday",
+            modules: [
+              "deep-equal",
+              "defined",
+              "object-inspect",
+              "resumer",
+              "tape"
+            ]
+          },
+          {
+            author: "Jordan Harband",
+            modules: [
+              "define-properties",
+              "es-abstract",
+              "es-to-primitive",
+              "is-callable",
+              "object-keys",
+              "string.prototype.trim"
+            ]
+          },
+          { author: "Manuel Stofer", modules: ["foreach"] },
+          {
+            author: "Marijn Haverbeke, Ingvar Stepanyan and Adrian Heine",
+            modules: ["acorn"]
+          },
+          { author: "Raynos", modules: ["function-bind"] },
+          { author: "Stephen Sugden", modules: ["is-function"] }
+        ]
       }
     ]);
     t.end();
@@ -105,7 +106,9 @@ test("rollup-plugin-credits whitelist", t => {
 
   rollup.rollup(rollupConfig).then(async bundle => {
     try {
-      const { code, map } = await bundle.generate({ format: "es" });
+      const { output: [{ code, map }] } = await bundle.generate({
+        format: "es"
+      });
       t.fail();
     } catch (e) {
       t.ok(

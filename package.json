@@ -11,16 +11,16 @@
   },
   "files": [],
   "devDependencies": {
-    "acorn": "^5.3.0",
-    "path-to-regexp": "^2.1.0",
+    "acorn": "^6.1.1",
+    "path-to-regexp": "^3.0.0",
     "prettier": "^1.10.2",
-    "rollup": "^0.55.0",
-    "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-node-resolve": "^3.0.2",
-    "standard-version": "^4.3.0",
+    "rollup": "^1",
+    "rollup-plugin-commonjs": "^9",
+    "rollup-plugin-node-resolve": "^4",
+    "standard-version": "^5.0.1",
     "tape": "^4.8.0"
   },
   "dependencies": {
-    "spdx-expression-parse": "^2.0.2"
+    "spdx-expression-parse": "^3.0.0"
   }
 }
