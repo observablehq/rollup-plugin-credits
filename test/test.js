@@ -44,7 +44,9 @@ test("rollup-plugin-credits", t => {
   };
 
   rollup.rollup(rollupConfig).then(async bundle => {
-    const { output: [{ code, map }] } = await bundle.generate({ format: "es" });
+    const {
+      output: [{ code, map }]
+    } = await bundle.generate({ format: "es" });
     const output = JSON.parse(code.replace(/^export default/, ""));
     t.deepEqual(output, [
       {
@@ -77,13 +79,12 @@ test("rollup-plugin-credits", t => {
               "string.prototype.trim"
             ]
           },
-          { author: "Manuel Stofer", modules: ["foreach"] },
           {
             author: "Marijn Haverbeke, Ingvar Stepanyan and Adrian Heine",
             modules: ["acorn"]
           },
-          { author: "Raynos", modules: ["function-bind"] },
-          { author: "Stephen Sugden", modules: ["is-function"] }
+          { author: "Raynos", modules: ["for-each", "function-bind"] },
+          { author: "Thiago de Arruda", modules: ["has"] }
         ]
       }
     ]);
@@ -106,7 +107,9 @@ test("rollup-plugin-credits whitelist", t => {
 
   rollup.rollup(rollupConfig).then(async bundle => {
     try {
-      const { output: [{ code, map }] } = await bundle.generate({
+      const {
+        output: [{ code, map }]
+      } = await bundle.generate({
         format: "es"
       });
       t.fail();
