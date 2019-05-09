@@ -170,22 +170,31 @@ module.exports = ({ whitelist } = {}) => {
         if (!dependency.license) {
           continue;
         }
-        let parsedLicense = licenseObjects(parseSPDX(dependency.license));
-        if (whitelist) {
-          for (let license of flattenLicense(parsedLicense)) {
-            if (!whitelistSet.has(license)) {
-              throw new Error(
-                `Non-whitelisted license detected in ${name}: ${license}`
-              );
+        let parsedLicense;
+        try {
+          parsedLicense = licenseObjects(parseSPDX(dependency.license));
+        } catch (e) {
+          console.log(
+            `Could not parse license of ${name} (${dependency.license})`
+          );
+        }
+        if (parsedLicense) {
+          if (whitelist) {
+            for (let license of flattenLicense(parsedLicense)) {
+              if (!whitelistSet.has(license)) {
+                throw new Error(
+                  `Non-whitelisted license detected in ${name}: ${license}`
+                );
+              }
             }
           }
-        }
 
-        let existing = licenseGroups.get(parsedLicense);
-        licenseGroups.set(
-          parsedLicense,
-          existing ? existing.concat(dependency) : [dependency]
-        );
+          let existing = licenseGroups.get(parsedLicense);
+          licenseGroups.set(
+            parsedLicense,
+            existing ? existing.concat(dependency) : [dependency]
+          );
+        }
       }
 
       const output = [];

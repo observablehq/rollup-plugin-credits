@@ -58,6 +58,7 @@ test("rollup-plugin-credits", t => {
         modules: [
           { author: "Blake Embrey", modules: ["path-to-regexp"] },
           { author: "Dominic Tarr", modules: ["through"] },
+          { author: "Facebook, Inc.", modules: ["fbjs"] },
           {
             author: "James Halliday",
             modules: [
@@ -68,6 +69,7 @@ test("rollup-plugin-credits", t => {
               "tape"
             ]
           },
+          { author: "Jamie Kyle", modules: ["gud"] },
           {
             author: "Jordan Harband",
             modules: [
