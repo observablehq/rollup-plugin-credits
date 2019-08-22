@@ -21,7 +21,7 @@
     "tape": "^4.8.0"
   },
   "dependencies": {
-    "create-react-context": "^0.2.3",
+    "create-react-context": "^0.3.0",
     "spdx-expression-parse": "^3.0.0"
   }
 }
