@@ -109,7 +109,7 @@ function groupByAuthor(modules) {
       author,
       modules: modules.sort()
     }))
-    .sort((a, b) => a.author > b.author);
+    .sort((a, b) => a.author.localeCompare(b.author));
 }
 
 module.exports = ({ whitelist } = {}) => {
