@@ -1,0 +1,29 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "13:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: create-react-context
+    versions:
+    - "> 0.2.3"
+  - dependency-name: path-to-regexp
+    versions:
+    - "> 3.1.0"
+  - dependency-name: tape
+    versions:
+    - 5.1.0
+    - 5.1.1
+  - dependency-name: rollup
+    versions:
+    - 2.35.1
+    - 2.38.3
+  - dependency-name: acorn
+    versions:
+    - 8.0.4
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
